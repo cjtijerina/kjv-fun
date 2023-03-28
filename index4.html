@@ -40,9 +40,14 @@
      });
  
      // stop reading
-     document.getElementById("stop-btn").addEventListener("click", () => {
-       speechSynthesis.cancel();
-     });
+     //document.getElementById("stop-btn").addEventListener("click", () => {
+     //  speechSynthesis.cancel();
+     //});
+	   
+      // stop reading
+	document.getElementById("stop-btn").addEventListener("click touchstart", () => {
+  	  speechSynthesis.cancel();
+       });
  
      // rewind
      document.getElementById("rewind-btn").addEventListener("click", () => {
