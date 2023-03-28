@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Bible - 42gens</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+   <button id="start-btn">Start Audio</button>
+   <button id="stop-btn">Stop Audio</button>
+   <button id="rewind-btn">&lt;&lt;</button>
+   <button id="fast-forward-btn">&gt;&gt;</button>
+ 
+   <div id="verse"></div>
+   <script>
+     let currentVerseIndex = parseInt(localStorage.getItem("currentVerseIndex")) || 0;
+     let speech = new SpeechSynthesisUtterance();
+     let verses = [];
+ 
+     // fetch the JSON file and parse it
+     fetch("kjvdatawithidkey1.json")
+       .then(response => response.json())
+       .then(data => {
+         verses = data;
+         displayVerse(currentVerseIndex);
+       });
+ 
+     function displayVerse(verseIndex) {
+       speech.text = verses[verseIndex].verse.replace(/:/g, '');
+       speechSynthesis.speak(speech);
+       document.getElementById("verse").innerHTML = verses[verseIndex].book + " " + verses[verseIndex].verse;
+       currentVerseIndex = verseIndex;
+       localStorage.setItem("currentVerseIndex", currentVerseIndex);
+     }
+ 
+     // start reading
+     document.getElementById("start-btn").addEventListener("click", () => {
+       displayVerse(currentVerseIndex);
+       currentVerseIndex++;
+     });
+ 
+     // stop reading
+     document.getElementById("stop-btn").addEventListener("click", () => {
+       speechSynthesis.cancel();
+     });
+ 
+     // rewind
+     document.getElementById("rewind-btn").addEventListener("click", () => {
+       if (currentVerseIndex > 0) {
+         currentVerseIndex--;
+         displayVerse(currentVerseIndex);
+       }
+     });
+ 
+     // fast forward
+     document.getElementById("fast-forward-btn").addEventListener("click", () => {
+       if (currentVerseIndex < verses.length - 1) {
+         currentVerseIndex++;
+         displayVerse(currentVerseIndex);
+       }
+     });
+ 
+     // pick up where you left off
+     speech.onend = () => {
+       if (currentVerseIndex < verses.length - 1) {
+         currentVerseIndex++;
+         displayVerse(currentVerseIndex);
+       }
+     };
+ 
+   </script>
+ 
+   <nav class="container">
+     <a href="./index1.html">Read KJV</a>
+     <a href="./index2.html">Bible Facts</a>
+     <a href="./index3.html">Feelings</a>
+     <a href="https://42gens.com/">42Gens</a>
+   </nav>
+ </body>
+ </html>

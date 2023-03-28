@@ -1,0 +1,162 @@
+* {
+	box-sizing: border-box;
+}
+
+
+/* Styles for portrait orientation */
+@media (orientation: portrait) {
+	body {
+		font-family: Arial, sans-serif;
+		margin: 0;
+		padding: 0;
+		width: 100%;
+		height: 100%;
+		background-color: #d6f5d9;
+	}
+}
+
+/* Styles for landscape orientation */
+@media (orientation: landscape) {
+	body {
+	  width: 100%;
+	  height: 100%;
+	  overflow-y: auto;
+      background-color: #d6f5d9;
+	}
+  }
+
+h1 {
+	margin: 20px 0 20px 0;
+  	padding: 30px;
+  	text-align: center;
+  	background: #1abc9c;
+  	color: white;
+  	font-size: 30px;
+    text-align: center;
+}
+
+h2 {
+	margin: 20px 0 20px 0;
+	color: #3e8e41;
+    text-align: center;
+    font-size: 62px;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+	height: 100%;
+	overflow-y: auto;
+}
+
+
+table, th, td {
+	border: 1px solid #3e8e41;
+	
+}
+
+th, td {
+	padding: 8px;
+	color: black;
+}
+
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-top: 10px;
+}
+
+button {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+button:hover {
+	background-color: #3e8e41;
+}
+
+input[type=text] {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 2px solid #4CAF50;
+	border-radius: 5px;
+	width: 100%;
+}
+
+.container {
+	display: flex;
+	gap: 0.625%;
+  }
+  
+  a {
+	flex: 1;
+	text-decoration: none;
+	outline: none;
+	text-align: center;
+	line-height: 3;
+	color: rgb(247, 244, 244);
+  }
+  
+  a:link,
+  a:visited,
+  a:focus {
+	background: #4CAF50;
+	color: white;
+  }
+  
+  a:hover {
+	background: #3e8e41;
+  }
+  
+  a:active {
+	background: #3e8e41;
+	color: white;
+  }
+
+  tr.highlighted {
+	background-color: yellow;
+  }
+
+  
+  /* new code area below */
+  select {
+	font-family: Arial, sans-serif;
+	background-color: #f7f7f7;
+	border: none;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  #start-btn, #stop-btn {
+	padding: 10px;
+	font-size: 16px;
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	margin-right: 10px;
+ }
+ 
+ #start-btn:hover, #stop-btn:hover {
+	background-color: #3e8e41;
+ }
+ 
+ #verse {
+	font-size: 24px;
+	margin-top: 20px;
+	text-align: center;
+ }
+
+

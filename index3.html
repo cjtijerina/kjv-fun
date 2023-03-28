@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Bible - 42gens</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<!-- Create a dropdown list to allow the user to select a feeling -->
+<div style="text-align:center"><label style="color:#3e8e41;font-size:20px;" for="feelings">Choose a negative emotion and feel how His Word can help you:  </label>
+
+<select id="feelings">
+  <option value="Choose">Choose</option>
+  <option value="Afraid">Afraid</option>
+  <option value="Aggravated">Aggravated</option>
+  <option value="Anxiety-Stressed">Anxiety-Stressed</option>
+  <option value="Anxious">Anxious</option>
+  <option value="Awful">Awful</option>
+  <option value="Betrayed">Betrayed</option>
+  <option value="Bitterness">Bitterness</option>
+  <option value="Blah">Blah</option>
+  <option value="Bleak">Bleak</option>
+  <option value="Bored">Bored</option>
+  <option value="Broken heartedness">Broken heartedness</option>
+  <option value="Bullied">Bullied</option>
+  <option value="Burnout">Burnout</option>
+  <option value="Cheated">Cheated</option>
+  <option value="Confusion">Confusion</option>
+  <option value="Dazed">Dazed</option>
+  <option value="Depressed">Depressed</option>
+  <option value="Destructive">Destructive</option>
+  <option value="Discouraged">Discouraged</option>
+  <option value="Doubt">Doubt</option>
+  <option value="Fake">Fake</option>
+  <option value="Fatigued">Fatigued</option>
+  <option value="Fear">Fear</option>
+  <option value="Fearful">Fearful</option>
+  <option value="Fooled">Fooled</option>
+  <option value="Fragile">Fragile</option>
+  <option value="Frustrated">Frustrated</option>
+  <option value="Giving Up">Giving Up</option>
+  <option value="Grouchy">Grouchy</option>
+  <option value="Grumpy">Grumpy</option>
+  <option value="Guilty">Guilty</option>
+  <option value="Hateful">Hateful</option>
+  <option value="Helplessness">Helplessness</option>
+  <option value="Hopelessness">Hopelessness</option>
+  <option value="Horrible">Horrible</option>
+  <option value="Hot-tempered">Hot-tempered</option>
+  <option value="Impatient">Impatient</option>
+  <option value="Indecisive">Indecisive</option>
+  <option value="Irritable">Irritable</option>
+  <option value="Lazy">Lazy</option>
+  <option value="Lied to">Lied to</option>
+  <option value="Lonely">Lonely</option>
+  <option value="Lost">Lost</option>
+  <option value="Mad">Mad</option>
+  <option value="Moody">Moody</option>
+  <option value="Mourning Grief">Mourning Grief</option>
+  <option value="Negative">Negative</option>
+  <option value="Nervous">Nervous</option>
+  <option value="Passivity">Passivity</option>
+  <option value="Regretfulness">Regretfulness</option>
+  <option value="Rejected">Rejected</option>
+  <option value="Sad">Sad</option>
+  <option value="Self-Consciousness">Self-Consciousness</option>
+  <option value="Self-Destructive">Self-Destructive</option>
+  <option value="Sensitive">Sensitive</option>
+  <option value="Shame">Shame</option>
+  <option value="Stressed">Stressed</option>
+  <option value="Suicidal">Suicidal</option>
+  <option value="Weak">Weak</option>
+  <option value="Worthless">Worthless</option>
+
+  <!-- Add more options as needed -->
+</select>
+</div>
+
+<!-- Create a table to display the Bible verses and messages -->
+<table id="verses">
+  <thead>
+    <tr>
+      <th>Verse</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows will be dynamically added here -->
+  </tbody>
+  
+</table>
+
+<!-- Include your JavaScript code at the bottom of the HTML file -->
+<script>
+  const selectFeelings = document.getElementById("feelings");
+  const tableBody = document.querySelector("#verses tbody");
+
+  // Use fetch() to read the JSON file
+  fetch("kjvfeeling3.json")
+    .then(response => response.json())
+    .then(data => {
+      // Filter the data based on the user's selected feeling
+      selectFeelings.addEventListener("change", () => {
+        const selectedFeeling = selectFeelings.value;
+        const filteredData = data.filter(item => item.feeling === selectedFeeling);
+
+        // Clear any existing rows in the table
+        tableBody.innerHTML = "";
+
+        // Loop through the filtered data and add a row for each item
+        filteredData.forEach(item => {
+          const row = document.createElement("tr");
+          const verseCell = document.createElement("td");
+          const messageCell = document.createElement("td");
+
+          verseCell.textContent = item.bible_verse;
+          messageCell.textContent = item.bible_message;
+
+          row.appendChild(verseCell);
+          row.appendChild(messageCell);
+
+          tableBody.appendChild(row);
+        });
+      });
+    })
+    .catch(error => console.log(error));
+</script>
+<nav class="container">
+	<a href="./index1.html">Read KJV</a>
+	<a href="./index2.html">Bible Facts</a>
+  <a href="./index4.html">KJV Audio</a>
+	<a href="https://42gens.com/">42Gens</a>
+
+  </nav>
+		
+
+</body>
+</html>

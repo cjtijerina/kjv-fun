@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Bible - 42gens</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<h2>KJV Bible</h2>
+	<input type="text" id="search1" onkeyup="searchTable1()" placeholder="Search example: John 3:16">
+	<table id="table1">
+		<thead>
+			<tr>
+				<th>Book</th>
+				<th>Verse</th>
+
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		
+	</table>
+	<div class="pagination">
+		<button onclick="prevPage1()">&laquo; Prev</button>
+		<span id="page1"></span>
+		<button onclick="nextPage1()">Next &raquo;</button>
+		
+	</div>
+	<script src="./script.js"></script>
+	<nav class="container">
+		<a href="./index2.html">Bible Facts</a>
+		<a href="./index3.html">Feelings</a>
+		<a href="./index4.html">KJV Audio</a>
+		<a href="https://42gens.com/">42Gens</a>
+</body>
+</html>
