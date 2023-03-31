@@ -1,78 +1,187 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>My Bible - 42gens</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<link rel="stylesheet" type="text/css" href="style.css">
+  <title>My Bible - 42gens</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-   <button id="start-btn">Start Audio</button>
-   <button id="stop-btn">Stop Audio</button>
-   <button id="rewind-btn">&lt;&lt;</button>
-   <button id="fast-forward-btn">&gt;&gt;</button>
- 
-   <div id="verse"></div>
-   <script>
-     let currentVerseIndex = parseInt(localStorage.getItem("currentVerseIndex")) || 0;
-     let speech = new SpeechSynthesisUtterance();
-     let verses = [];
- 
-     // fetch the JSON file and parse it
-     fetch("kjvdatawithidkey1.json")
-       .then(response => response.json())
-       .then(data => {
-         verses = data;
-         displayVerse(currentVerseIndex);
-       });
- 
-     function displayVerse(verseIndex) {
-       speech.text = verses[verseIndex].verse.replace(/:/g, '');
-       speechSynthesis.speak(speech);
-       document.getElementById("verse").innerHTML = verses[verseIndex].book + " " + verses[verseIndex].verse;
-       currentVerseIndex = verseIndex;
-       localStorage.setItem("currentVerseIndex", currentVerseIndex);
-     }
- 
-     // start reading
-     document.getElementById("start-btn").addEventListener("click", () => {
-       displayVerse(currentVerseIndex);
-       currentVerseIndex++;
-     });
- 
-     // stop reading
-     document.getElementById("stop-btn").addEventListener("click", () => {
-       speechSynthesis.cancel();
-     });
-	   
-     
-     // rewind
-     document.getElementById("rewind-btn").addEventListener("click", () => {
-       if (currentVerseIndex > 0) {
-         currentVerseIndex--;
-         displayVerse(currentVerseIndex);
-       }
-     });
- 
-     // fast forward
-     document.getElementById("fast-forward-btn").addEventListener("click", () => {
-       if (currentVerseIndex < verses.length - 1) {
-         currentVerseIndex++;
-         displayVerse(currentVerseIndex);
-       }
-     });
- 
-     // pick up where you left off
-     speech.onend = () => {
-       if (currentVerseIndex < verses.length - 1) {
-         currentVerseIndex++;
-         displayVerse(currentVerseIndex);
-       }
-     };
- 
-   </script>
- 
+  <button id="start-btn">Start Audio</button>
+  <button id="stop-btn">Stop Audio</button>
+  <button id="rewind-btn">&lt;&lt;</button>
+  <button id="fast-forward-btn">&gt;&gt;</button>
+  
+  <div>
+    <label for="book-search">Search by Book:</label>
+    <input type="text" id="book-search" name="book-search">
+    <datalist id="search-list">
+      <option value="Genesis">
+      <option value="Exodus">
+      <option value="Leviticus">
+      <option value="Numbers">
+      <option value="Deuteronomy">
+      <option value="Joshua">
+      <option value="Judges">
+      <option value="Ruth">
+      <option value="1 Samuel">
+      <option value="2 Samuel">
+      <option value="1 Kings">
+      <option value="2 Kings">
+      <option value="1 Chronicles">
+      <option value="2 Chronicles">
+      <option value="Ezra">
+      <option value="Nehemiah">
+      <option value="Esther">
+      <option value="Job">
+      <option value="Psalm">
+      <option value="Proverbs">
+      <option value="Ecclesiastes">
+      <option value="Song of Solomon">
+      <option value="Isaiah">
+      <option value="Jeremiah">
+      <option value="Lamentations">
+      <option value="Ezekiel">
+      <option value="Daniel">
+      <option value="Hosea">
+      <option value="Joel">
+      <option value="Amos">
+      <option value="Obadiah">
+      <option value="Jonah">
+      <option value="Micah">
+      <option value="Nahum">
+      <option value="Habakkuk">
+      <option value="Zephaniah">
+      <option value="Haggai">
+      <option value="Zechariah">
+      <option value="Malachi">
+      <option value="Matthew">
+      <option value="Mark">
+      <option value="Luke">
+      <option value="John">
+      <option value="Acts">
+      <option value="Romans">
+      <option value="1 Corinthians">
+      <option value="2 Corinthians">
+      <option value="Galatians">
+      <option value="Ephesians">
+      <option value="Philippians">
+      <option value="Colossians">
+      <option value="1 Thessalonians">
+      <option value="2 Thessalonians">
+      <option value="1 Timothy">
+      <option value="2 Timothy">
+      <option value="Titus">
+      <option value="Philemon">
+      <option value="Hebrews">
+      <option value="James">
+      <option value="1 Peter">
+      <option value="2 Peter">
+      <option value="1 John">
+      <option value="2 John">
+      <option value="3 John">
+      <option value="Jude">
+      <option value="Revelation">
+    </datalist>
+    <button id="search-btn">Search</button>
+  </div>
+
+  <div id="verse"></div>
+
+  <script>
+    let currentVerseIndex = parseInt(localStorage.getItem("currentVerseIndex")) || 0;
+    let speech = new SpeechSynthesisUtterance();
+    let verses = [];
+
+    // fetch the JSON file and parse it
+    fetch("kjvdatawithidkey1.json")
+      .then(response => response.json())
+      .then(data => {
+        verses = data;
+        displayVerse(currentVerseIndex);
+      });
+
+    function displayVerse(verseIndex) {
+      speech.text = verses[verseIndex].verse.replace(/:/g, '');
+      speechSynthesis.speak(speech);
+      document.getElementById("verse").innerHTML = verses[verseIndex].book + " " + verses[verseIndex].verse;
+      currentVerseIndex = verseIndex;
+      localStorage.setItem("currentVerseIndex", currentVerseIndex);
+    }
+
+    // start reading
+    document.getElementById("start-btn").addEventListener("click", () => {
+      displayVerse(currentVerseIndex);
+      currentVerseIndex++;
+    });
+
+    // stop reading
+    document.getElementById("stop-btn").addEventListener("click", () => {
+      speechSynthesis.cancel();
+    });
+
+    // rewind
+    document.getElementById("rewind-btn").addEventListener("click", () => {
+      if (currentVerseIndex > 0) {
+        currentVerseIndex--;
+        displayVerse(currentVerseIndex);
+      }
+    });
+
+    // fast forward
+    document.getElementById("fast-forward-btn").addEventListener("click", () => {
+      if (currentVerseIndex < verses.length - 1) {
+        currentVerseIndex++;
+        displayVerse(currentVerseIndex);
+      }
+    });
+
+    // search
+    const bookSearchInput = document.getElementById("book-search");
+    const searchList = document.getElementById("search-list");
+    bookSearchInput.addEventListener("input", () => {
+      let bookOptions = '';
+      for (let i = 0; i < verses.length; i++) {
+        const book = verses[i].book;
+        if (book.toLowerCase().startsWith(bookSearchInput.value.trim().toLowerCase())) {
+          bookOptions += `<option value="${book}">${book}</option>`;
+        }
+      }
+      searchList.innerHTML = bookOptions;
+      if (bookOptions) {
+        bookSearchInput.setAttribute("list", "search-list");
+      } else {
+        bookSearchInput.removeAttribute("list");
+      }
+    });
+    
+    document.getElementById("search-btn").addEventListener("click", () => {
+      const bookSearch = bookSearchInput.value.trim().toLowerCase();
+      let foundVerse = null;
+      for (let i = 0; i < verses.length; i++) {
+        const verse = verses[i];
+        if (verse.book.toLowerCase() === bookSearch) {
+          foundVerse = i;
+          break;
+        }
+      }
+      if (foundVerse !== null) {
+        displayVerse(foundVerse);
+      } else {
+        alert("No matching verse found for the given book.");
+      }
+    });
+
+    // pick up where you left off
+    speech.onend = () => {
+      if (currentVerseIndex < verses.length - 1) {
+        currentVerseIndex++;
+        displayVerse(currentVerseIndex);
+      }
+    };
+  </script>
+  Audio for mobile is coming soon.
    <nav class="container">
-     <a href="./index.html">Read KJV</a>
+     <a href="./index1.html">Read KJV</a>
      <a href="./index2.html">Bible Facts</a>
      <a href="./index3.html">Feelings</a>
      <a href="https://42gens.com/">42Gens</a>
