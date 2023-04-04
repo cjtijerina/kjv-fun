@@ -9,10 +9,6 @@
 	<button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
 	<h2>Amazing Bible Facts</h2>
 
-	<label for="searchInput">Search for a question:</label>
-	<input type="text" id="searchInput">
-	<button id="searchButton">Search</button>
-
 	<table id="table2">
 		<thead>
 			<tr>
@@ -30,10 +26,7 @@
 	</div>
 
 	<script src="./script.js"></script>
-	<script>
-		const searchButton = document.querySelector('#searchButton');
-		searchButton.addEventListener('click', searchQuestions);
-	</script>
+
 
 	<nav class="container">
 		<a href="./index.html">Read</a>
@@ -44,14 +37,7 @@
 	</nav>
 
 	<script>
-		function searchQuestions() {
-			const input = document.getElementById('searchInput').value;
-			const jsonData = JSON.parse(yourStaticJsonData);
-
-			const searchResults = jsonData.filter((item) => {
-				return item.question.includes(input);
-			});
-
+		
 			const tableBody = document.querySelector('#table2 tbody');
 			tableBody.innerHTML = '';
 
@@ -72,7 +58,7 @@
 				const cell = row.insertCell();
 				cell.textContent = 'No results found.';
 			}
-		}
+		
 	</script>
 </body>
 </html>
