@@ -6,7 +6,13 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+	<button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
 	<h2>Amazing Bible Facts</h2>
+
+	<label for="searchInput">Search for a question:</label>
+	<input type="text" id="searchInput">
+	<button id="searchButton">Search</button>
+
 	<table id="table2">
 		<thead>
 			<tr>
@@ -16,7 +22,6 @@
 		</thead>
 		<tbody>
 		</tbody>
-	</tbody>
 	</table>
 	<div class="pagination">
 		<button onclick="prevPage2()">&laquo; Prev</button>
@@ -25,13 +30,49 @@
 	</div>
 
 	<script src="./script.js"></script>
+	<script>
+		const searchButton = document.querySelector('#searchButton');
+		searchButton.addEventListener('click', searchQuestions);
+	</script>
+
 	<nav class="container">
 		<a href="./index.html">Read</a>
-		<a href="./index4.html">Audio</a>
 		<a href="./index2.html">Facts</a>
 		<a href="./index3.html">Feelings</a>
+		<a href="./index4.html">Audio</a>
 		<a href="https://42gens.com/">42Gens</a>
-	
-	  </nav>
+	</nav>
+
+	<script>
+		function searchQuestions() {
+			const input = document.getElementById('searchInput').value;
+			const jsonData = JSON.parse(yourStaticJsonData);
+
+			const searchResults = jsonData.filter((item) => {
+				return item.question.includes(input);
+			});
+
+			const tableBody = document.querySelector('#table2 tbody');
+			tableBody.innerHTML = '';
+
+			if (searchResults.length > 0) {
+				searchResults.forEach((item) => {
+					const question = item.question;
+					const answer = item.answer;
+
+					const row = tableBody.insertRow();
+					const questionCell = row.insertCell();
+					const answerCell = row.insertCell();
+
+					questionCell.textContent = question;
+					answerCell.textContent = answer;
+				});
+			} else {
+				const row = tableBody.insertRow();
+				const cell = row.insertCell();
+				cell.textContent = 'No results found.';
+			}
+		}
+	</script>
 </body>
 </html>
