@@ -8,6 +8,8 @@
 <body>
 <!-- Create a dropdown list to allow the user to select a feeling -->
 <div style="text-align:center"><label style="color:#920e0e;font-size:30px;" for="feelings">Choose a negative feeling:</label>
+  <button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
+
 
 <select id="feelings">
   <option value="Choose">Choose</option>
@@ -23,7 +25,6 @@
   <option value="Bored">Bored</option>
   <option value="Broken heartedness">Broken heartedness</option>
   <option value="Bullied">Bullied</option>
-  <option value="Burnout">Burnout</option>
   <option value="Cheated">Cheated</option>
   <option value="Confusion">Confusion</option>
   <option value="Dazed">Dazed</option>
@@ -59,6 +60,7 @@
   <option value="Mourning Grief">Mourning Grief</option>
   <option value="Negative">Negative</option>
   <option value="Nervous">Nervous</option>
+  <option value="Nervous">Overwhelmed</option>
   <option value="Passivity">Passivity</option>
   <option value="Regretfulness">Regretfulness</option>
   <option value="Rejected">Rejected</option>
@@ -71,13 +73,14 @@
   <option value="Suicidal">Suicidal</option>
   <option value="Weak">Weak</option>
   <option value="Worthless">Worthless</option>
+ 
 
   <!-- Add more options as needed -->
 </select>
 </div>
 
 <!-- Create a table to display the Bible verses and messages -->
-<table id="verses">
+<table id="verses" style="display: none;">
   <thead>
     <tr>
       <th>Verse</th>
@@ -93,6 +96,7 @@
 <!-- Include your JavaScript code at the bottom of the HTML file -->
 <script>
   const selectFeelings = document.getElementById("feelings");
+  const table = document.getElementById("verses");
   const tableBody = document.querySelector("#verses tbody");
 
   // Use fetch() to read the JSON file
@@ -121,17 +125,47 @@
 
           tableBody.appendChild(row);
         });
+
+        // Show the table if there is filtered data to display
+        if (filteredData.length > 0) {
+          table.style.display = "block";
+        } else {
+          table.style.display = "none";
+        }
       });
     })
     .catch(error => console.log(error));
+
+//Share Start Function
+const shareButton = document.getElementById('share-button');
+
+if (navigator.share) {
+  // Show the share button if the Web Share API is supported by the browser
+  shareButton.style.display = 'block';
+
+  // Handle the click event on the share button
+  shareButton.addEventListener('click', () => {
+    navigator.share({
+      title: 'My Bible - 42gens',
+      text: 'Check out this Bible verse and message for when you are feeling down:',
+      url: window.location.href
+    })
+      .then(() => console.log('Shared successfully'))
+      .catch((error) => console.log('Error sharing:', error));
+  });
+} else {
+  // Hide the share button if the Web Share API is not supported by the browser
+  shareButton.style.display = 'none';
+}
+//Share End Function
+
 </script>
 <nav class="container">
-		<a href="./index.html">Read</a>
-		<a href="./index4.html">Audio</a>
-		<a href="./index2.html">Facts</a>
-		<a href="./index3.html">Feelings</a>
+    <a href="./index.html">Read</a>
+		<a href="./index2.html">Audio</a>
+		<a href="./index3.html">Facts</a>
+		<a href="./index4.html">Feelings</a>
 		<a href="https://42gens.com/">42Gens</a>
-
   </nav>
   
   <!DOCTYPE html>
@@ -163,12 +197,10 @@
 	</style>
 </head>
 <body>
-<div>  </div>
-
 <div style="text-align: center;" class="box-header">
-  <span style="color: #920e0e; font-size: 24px;">ALL NEGATIVE FEELINGS SHALL PASS</span> 
+  <span style="color: #920e0e; font-size: 24px;">THIS TOO SHALL PASS</span> 
   <br>
-  <span style="font-size: 16px;">Meditate on 1 Peter 5:1 thru 5:11 Morning, Noon and at Night Time!</span>
+  <span style="font-size: 14px;">Meditate on 1 Peter 5:1 thru 5:11 Morning, Noon and Night</span>
 </div>
 
 <div class="box">
@@ -181,7 +213,6 @@
 		<div class="box-header">1 Peter 5:2</div>
 		<div class="box-content">Feed the flock of God which is among you, taking the oversight thereof, not by constraint, but willingly; not for filthy lucre, but of a ready mind;</div>
   </div>
-
 
 <div class="box">
     <div class="box-header">1 Peter 5:3</div>
