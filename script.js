@@ -177,3 +177,26 @@ function prevPage2() {
 		populateTable2(currentPage - 1);
 	}
 }
+
+//Share Start Function
+const shareButton = document.getElementById('share-button');
+
+if (navigator.share) {
+  // Show the share button if the Web Share API is supported by the browser
+  shareButton.style.display = 'block';
+
+  // Handle the click event on the share button
+  shareButton.addEventListener('click', () => {
+    navigator.share({
+      title: 'My Bible - 42gens',
+      text: 'Check out this Bible verse and message for when you are feeling down:',
+      url: window.location.href
+    })
+      .then(() => console.log('Shared successfully'))
+      .catch((error) => console.log('Error sharing:', error));
+  });
+} else {
+  // Hide the share button if the Web Share API is not supported by the browser
+  shareButton.style.display = 'none';
+}
+//Share End Function
