@@ -6,6 +6,7 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+  <button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
   <button id="start-btn">Start Audio</button>
   <button id="stop-btn">Stop Audio</button>
   <button id="rewind-btn">&lt;&lt;</button>
@@ -178,14 +179,38 @@
         displayVerse(currentVerseIndex);
       }
     };
- </script>
-<nav class="container">
-		<a href="./index.html">Read</a>
-		<a href="./index4.html">Audio</a>
+
+    //Share Start Function
+const shareButton = document.getElementById('share-button');
+
+if (navigator.share) {
+  // Show the share button if the Web Share API is supported by the browser
+  shareButton.style.display = 'block';
+
+  // Handle the click event on the share button
+  shareButton.addEventListener('click', () => {
+    navigator.share({
+      title: 'My Bible - 42gens',
+      text: 'Check out this Bible verse and message for when you are feeling down:',
+      url: window.location.href
+    })
+      .then(() => console.log('Shared successfully'))
+      .catch((error) => console.log('Error sharing:', error));
+  });
+} else {
+  // Hide the share button if the Web Share API is not supported by the browser
+  shareButton.style.display = 'none';
+}
+//Share End Function
+
+  </script>
+  Audio for mobile is coming soon.
+   <nav class="container">
+    <a href="./index.html">Read</a>
 		<a href="./index2.html">Facts</a>
 		<a href="./index3.html">Feelings</a>
+		<a href="./index4.html">Audio</a>
 		<a href="https://42gens.com/">42Gens</a>
-
-  </nav>
+   </nav>
  </body>
  </html>
