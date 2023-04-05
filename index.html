@@ -1,19 +1,41 @@
-<style>
-  .card {
-    border: 2px solid #8d9b3a;
-    margin: 5px auto; /* Add "auto" to center the card horizontally */
-    max-width: 300px; /* Set a maximum width for the card */
-    padding: 10px;
-    border-radius: 5px;
-    background-color: #d6f5d9;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
-  }
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Bible - 42gens</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+	<nav class="container">
+		<a href="./index.html">Read</a>
+		<a href="./index2.html">Facts</a>
+		<a href="./index3.html">Feelings</a>
+		<a href="./index4.html">Audio</a>
+		<a href="https://42gens.com/">42Gens</a>
+	</nav>
+	<!--<button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button> !-->
+	
+	<h2>KJV Bible</h2>
+	<input type="text" id="search1" onkeyup="searchTable1()" placeholder="Search...  Example: John 3:16">
+	<table id="table1">
+		<thead>
+			<tr>
+				<th>Book</th>
+				<th>Verse</th>
 
-  .card-header {
-    font-weight: bold;
-  }
-
-  .card-content {
-    margin-top: 1px;
-  }
-</style>
+			</tr>
+		</thead>
+		<tbody>
+		</tbody>
+		
+	</table>
+	<div class="pagination">
+		<button onclick="prevPage1()">&laquo; Prev</button>
+		<span id="page1"></span>
+		<button onclick="nextPage1()">Next &raquo;</button>
+		
+	</div>
+	<script src="./script.js"></script>
+	
+</body>
+</html>
