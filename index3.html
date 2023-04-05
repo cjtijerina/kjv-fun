@@ -6,35 +6,260 @@
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-	<nav class="container">
-		<a href="./index.html">Read</a>
-		<a href="./index2.html">Facts</a>
-		<a href="./index3.html">Feelings</a>
-		<a href="./index4.html">Audio</a>
-		<a href="https://42gens.com/">42Gens</a>
-	</nav>
-	<button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
-	<h2>Amazing Bible Facts</h2>
-
-	<table id="table2">
-		<thead>
-			<tr>
-				<th>Question</th>
-				<th>Answer</th>
-			</tr>
-		</thead>
-		<tbody>
-		</tbody>
-	</table>
-	<div class="pagination">
-		<button onclick="prevPage2()">&laquo; Prev</button>
-		<span id="page2"></span>
-		<button onclick="nextPage2()">Next &raquo;</button>
-	</div>
-
-	<script src="./script.js"></script>
+  <nav class="container">
+    <a href="./index.html">Read</a>
+    <a href="./index2.html">Facts</a>
+    <a href="./index3.html">Feelings</a>
+    <a href="./index4.html">Audio</a>
+    <a href="https://42gens.com/">42Gens</a>
+  </nav>
+<!-- Create a dropdown list to allow the user to select a feeling -->
+<div style="text-align:center"><label style="color:#994141;font-size:27px;" for="feelings">Common negative feelings: </label>
+  <button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
 
 
-	
+<select id="feelings">
+  <option value="Choose">Choose</option>
+  <option value="Afraid">Afraid</option>
+  <option value="Aggravated">Aggravated</option>
+  <option value="Anxiety-Stressed">Anxiety-Stressed</option>
+  <option value="Anxious">Anxious</option>
+  <option value="Awful">Awful</option>
+  <option value="Betrayed">Betrayed</option>
+  <option value="Bitterness">Bitterness</option>
+  <option value="Blah">Blah</option>
+  <option value="Bleak">Bleak</option>
+  <option value="Bored">Bored</option>
+  <option value="Broken heartedness">Broken heartedness</option>
+  <option value="Bullied">Bullied</option>
+  <option value="Cheated">Cheated</option>
+  <option value="Confusion">Confusion</option>
+  <option value="Dazed">Dazed</option>
+  <option value="Depressed">Depressed</option>
+  <option value="Destructive">Destructive</option>
+  <option value="Discouraged">Discouraged</option>
+  <option value="Doubt">Doubt</option>
+  <option value="Fake">Fake</option>
+  <option value="Fatigued">Fatigued</option>
+  <option value="Fear">Fear</option>
+  <option value="Fearful">Fearful</option>
+  <option value="Fooled">Fooled</option>
+  <option value="Fragile">Fragile</option>
+  <option value="Frustrated">Frustrated</option>
+  <option value="Giving Up">Giving Up</option>
+  <option value="Grouchy">Grouchy</option>
+  <option value="Grumpy">Grumpy</option>
+  <option value="Guilty">Guilty</option>
+  <option value="Hateful">Hateful</option>
+  <option value="Helplessness">Helplessness</option>
+  <option value="Hopelessness">Hopelessness</option>
+  <option value="Horrible">Horrible</option>
+  <option value="Hot-tempered">Hot-tempered</option>
+  <option value="Impatient">Impatient</option>
+  <option value="Indecisive">Indecisive</option>
+  <option value="Irritable">Irritable</option>
+  <option value="Lazy">Lazy</option>
+  <option value="Lied to">Lied to</option>
+  <option value="Lonely">Lonely</option>
+  <option value="Lost">Lost</option>
+  <option value="Mad">Mad</option>
+  <option value="Moody">Moody</option>
+  <option value="Mourning Grief">Mourning Grief</option>
+  <option value="Negative">Negative</option>
+  <option value="Nervous">Nervous</option>
+  <option value="Nervous">Overwhelmed</option>
+  <option value="Passivity">Passivity</option>
+  <option value="Regretfulness">Regretfulness</option>
+  <option value="Rejected">Rejected</option>
+  <option value="Sad">Sad</option>
+  <option value="Self-Consciousness">Self-Consciousness</option>
+  <option value="Self-Destructive">Self-Destructive</option>
+  <option value="Sensitive">Sensitive</option>
+  <option value="Shame">Shame</option>
+  <option value="Stressed">Stressed</option>
+  <option value="Suicidal">Suicidal</option>
+  <option value="Weak">Weak</option>
+  <option value="Worthless">Worthless</option>
+ 
+
+  <!-- Add more options as needed -->
+</select>
+</div>
+
+<!-- Create a table to display the Bible verses and messages -->
+<table id="verses" style="display: none;">
+  <thead>
+    <tr>
+      <th>Verse</th>
+      <th>Message</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Rows will be dynamically added here -->
+  </tbody>
+  
+</table>
+
+<!-- Include your JavaScript code at the bottom of the HTML file -->
+<script>
+  const selectFeelings = document.getElementById("feelings");
+  const table = document.getElementById("verses");
+  const tableBody = document.querySelector("#verses tbody");
+
+  // Use fetch() to read the JSON file
+  fetch("kjvfeeling3.json")
+    .then(response => response.json())
+    .then(data => {
+      // Filter the data based on the user's selected feeling
+      selectFeelings.addEventListener("change", () => {
+        const selectedFeeling = selectFeelings.value;
+        const filteredData = data.filter(item => item.feeling === selectedFeeling);
+
+        // Clear any existing rows in the table
+        tableBody.innerHTML = "";
+
+        // Loop through the filtered data and add a row for each item
+        filteredData.forEach(item => {
+          const row = document.createElement("tr");
+          const verseCell = document.createElement("td");
+          const messageCell = document.createElement("td");
+
+          verseCell.textContent = item.bible_verse;
+          messageCell.textContent = item.bible_message;
+
+          row.appendChild(verseCell);
+          row.appendChild(messageCell);
+
+          tableBody.appendChild(row);
+        });
+
+        // Show the table if there is filtered data to display
+        if (filteredData.length > 0) {
+          table.style.display = "block";
+        } else {
+          table.style.display = "none";
+        }
+      });
+    })
+    .catch(error => console.log(error));
+
+//Share Start Function
+const shareButton = document.getElementById('share-button');
+
+if (navigator.share) {
+  // Show the share button if the Web Share API is supported by the browser
+  shareButton.style.display = 'block';
+
+  // Handle the click event on the share button
+  shareButton.addEventListener('click', () => {
+    navigator.share({
+      title: 'My Bible - 42gens',
+      text: 'Check out this Bible verse and message for when you are feeling down:',
+      url: window.location.href
+    })
+      .then(() => console.log('Shared successfully'))
+      .catch((error) => console.log('Error sharing:', error));
+  });
+} else {
+  // Hide the share button if the Web Share API is not supported by the browser
+  shareButton.style.display = 'none';
+}
+//Share End Function
+
+</script>
+  
+  <!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Soft gray box with centered text</title>
+  <style>
+    .card {
+      border: 2px;
+      margin: 5px auto; /* Add "auto" to center the card horizontally */
+      max-width: 600px; /* Set a maximum width for the card */
+      padding: 10px;
+      border-radius: 5px;
+      background-color: #d6f5d9;
+      box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    }
+  
+    .card-header {
+      font-weight: bold;
+    }
+  
+    .card-content {
+      margin-top: 1px;
+    }
+  </style>
+</head>
+<body>
+  <div style="text-align: center;">
+    <span style="color: #3e8e41; font-size: 22px;">THIS TOO SHALL PASS</span> 
+    <br>
+    <!--<span style="font-size: 14px;">Meditate on 1 Peter 5:1 thru 5:11 Morning, Noon and Night</span> !-->
+  </div>
+
+  <div class="card">
+    <div class="card-header">1 Peter 5:1</div>
+    <div class="card-content">The elders which are among you I exhort, who am also an elder, and a witness of the sufferings of Christ, and also a partaker of the glory that shall be revealed:</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header">1 Peter 5:2</div>
+    <div class="card-content">Feed the flock of God which is among you, taking the oversight thereof, not by constraint, but willingly; not for filthy lucre, but of a ready mind;</div>
+  </div>
+
+  <!-- correction starts here-->
+  <div class="card">
+    <div class="card-header">1 Peter 5:3</div>
+		<div class="card-content">Neither as being lords over God's heritage, but being ensamples to the flock.</div>
+  </div>
+
+ <div class="card">
+    <div class="card-header">1 Peter 5:4</div>
+		<div class="card-content">And when the chief Shepherd shall appear, ye shall receive a crown of glory that fadeth not away.</div>
+  </div>
+
+ <div class="card">
+    <div class="card-header">1 Peter 5:5</div>
+		<div class="card-content">Likewise, ye younger, submit yourselves unto the elder. Yea, all of you be subject one to another, and be clothed with humility: for God resisteth the proud, and giveth grace to the humble.</div>
+  </div>
+
+<div class="card">
+    <div class="card-header">1 Peter 5:6</div>
+		<div class="card-content">Humble yourselves therefore under the mighty hand of God, that he may exalt you in due time:</div>
+  </div>
+
+<div class="card">    
+    <div class="card-header">1 Peter 5:7</div>
+		<div class="card-content">all your care upon him; for he careth for you.</div>
+  </div>
+
+    <div class="card">		
+    <div class="card-header">1 Peter 5:8</div>
+		<div class="card-content">Be sober, be vigilant; because your adversary the devil, as a roaring lion, walketh about, seeking whom he may devour:</div>
+  </div>
+
+<div class="card">	
+    <div class="card-header">1 Peter 5:9</div>
+    <div class="card-content">Whom resist stedfast in the faith, knowing that the same afflictions are accomplished in your brethren that are in the world.</div>
+  </div>
+
+<div class="card">
+    <div class="card-header">1 Peter 5:10</div>
+    <div class="card-content">But the God of all grace, who hath called us unto his eternal glory by Christ Jesus, after that ye have suffered a while, make you perfect, stablish, strengthen, settle you.</div>
+  </div>
+
+<div class="card">
+    <div class="card-header">1 Peter 5:11</div>
+    <div class="card-content">To him be glory and dominion for ever and ever. Amen.</div>
+  <!-- correction ends here-->
+
+  <!-- Add more cards for other verses -->
+
 </body>
+
+
+
 </html>
