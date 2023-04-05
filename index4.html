@@ -4,6 +4,7 @@
   <title>My Bible - 42gens</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <link rel="stylesheet" type="text/css" href="style.css">
+
 </head>
 <body>
   <button id="share-button" style="position: fixed; top: 20px; right: 20px;">Share</button>
@@ -86,7 +87,11 @@
     <button id="search-btn">Search</button>
   </div>
 
-  <div id="verse"></div>
+  <!--<div id="verse"></div> !-->
+  <div class="card">
+    <h2 id="book-verse"></h2>
+    <p id="verse"></p>
+  </div>
 
   <script>
   if ('speechSynthesis' in window) {
