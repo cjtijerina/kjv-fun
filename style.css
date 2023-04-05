@@ -41,10 +41,12 @@ h2 {
 	margin: 20px 0 20px 0;
 	color: #3e8e41;
     text-align: center;
-    font-size: 62px;
-	margin-bottom: -20px;
+    font-size: 42px;
+	
 	
 }
+
+
 
 h3 {
 	margin: 20px 0 20px 0;
@@ -60,6 +62,7 @@ table {
 	height: 100%;
 	overflow-y: auto;
 	margin-bottom: 30px;
+	background-color: #f5f783;
 }
 
 
@@ -196,4 +199,17 @@ select {
 	font-size: 24px;
 	font-weight: bold;
 	color: #3e8e41;
+  }
+
+
+  /*Placards for data display instead of table    */
+  .card {
+	background-color: #f5f783;
+	border-radius: 5px;
+	padding: 10px;
+	margin-bottom: 10px;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  h2 {
+	margin-top: 0;
   }
