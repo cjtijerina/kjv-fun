@@ -89,6 +89,7 @@
   <div id="verse"></div>
 
   <script>
+  if ('speechSynthesis' in window) {
     let currentVerseIndex = parseInt(localStorage.getItem("currentVerseIndex")) || 0;
     let speech = new SpeechSynthesisUtterance();
     let verses = [];
@@ -202,6 +203,12 @@ if (navigator.share) {
   shareButton.style.display = 'none';
 }
 //Share End Function
+
+} else {
+  // speechSynthesis is not supported, take action here
+  // For example, you can display a message or disable certain functionality
+  alert('Speech synthesis is not supported in this browser.');
+}
 
   </script>
   Audio for mobile is coming soon.
