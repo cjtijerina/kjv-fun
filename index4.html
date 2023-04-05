@@ -180,6 +180,11 @@
         displayVerse(currentVerseIndex);
       }
     };
+  } else {
+    // speechSynthesis is not supported, take action here
+    // For example, you can display a message or disable certain functionality
+    alert('Speech synthesis is not supported in this browser.');
+  }
 
     //Share Start Function
 const shareButton = document.getElementById('share-button');
@@ -204,11 +209,7 @@ if (navigator.share) {
 }
 //Share End Function
 
-} else {
-  // speechSynthesis is not supported, take action here
-  // For example, you can display a message or disable certain functionality
-  alert('Speech synthesis is not supported in this browser.');
-}
+
 
   </script>
   Audio for mobile is coming soon.
